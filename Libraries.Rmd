@@ -1,0 +1,37 @@
+```{r}
+library(Rmisc) #tidying data
+library(tidyverse) #tidying data
+library(lattice) #tidying data
+library(dplyr)
+library(ggplot2) #plotting
+library(dplyr) #fixing time stamps
+library(forcats)
+library(lme4)
+library(cowplot)
+library(ggpubr)
+library(emmeans)
+library(gt)
+library(glue)
+library(jtools)
+library(sjmisc)
+library(sjPlot)
+library(FinCal)
+library(plyr)
+library(data.table)
+library(Rcpp)
+library(zoo)
+library(hrbrthemes)
+library(patchwork)
+library(mmtable2)
+library(stringi)
+library(lmerTest)
+library(hms)
+library(rmarkdown)
+library(knitr)
+library(pracma)
+library(wmtsa)
+#library(qpcR)
+#install.packages("vroom")
+
+```
+
