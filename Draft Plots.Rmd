@@ -1,0 +1,252 @@
+#Draft Plots
+##Blood Lactate
+```{r}
+Bla_SUM<-main_df%>%
+  summarySE(measurevar = "Bla", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+Bla_SUM$Session_f = factor(Bla_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+Bla_SUM$Speed_f = factor(Bla_SUM$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+Bla_SUM$Time_Point_f = factor(Bla_SUM$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+Bla_PLOT_1 <- ggplot(Bla_SUM, aes(x = Time_Point_f, y= Bla))+
+            geom_errorbar(aes(ymin = Bla-se, ymax =Bla+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Blood Lactate Concentration (mmol/L) \n",breaks = c(0,1,2,3,4,5,6), limits = c(0,6))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+Bla_PLOT_1
+ 
+```
+
+## Lactate Dehydrogenase
+```{r}
+LDH_SUM<-main_df%>%
+  summarySE(measurevar = "cal_LDH", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+LDH_SUM$Session_f = factor(LDH_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+LDH_SUM$Speed_f = factor(LDH_SUM$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+LDH_SUM$Time_Point_f = factor(LDH_SUM$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+LDH_PLOT_1 <- ggplot(LDH_SUM, aes(x = Time_Point_f, y= cal_LDH))+
+            geom_errorbar(aes(ymin = cal_LDH-se, ymax =cal_LDH+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Lactate Dehydrogenase (units/L) \n",breaks = c(150,160,170,180,190,200,210,220,230,240,250,260,270), limits = c(150,270))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+LDH_PLOT_1
+ 
+```
+
+##Creatine Kinase
+```{r}
+CK_SUM<-main_df%>%
+  summarySE(measurevar = "cal_CK", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+CK_SUM$Session_f = factor(CK_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+CK_SUM$Speed_f = factor(CK_SUM$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+CK_SUM$Time_Point_f = factor(CK_SUM$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+CK_PLOT_1 <- ggplot(CK_SUM, aes(x = Time_Point_f, y= cal_CK))+
+            geom_errorbar(aes(ymin = cal_CK-se, ymax =cal_CK+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Creatine Kinase (units/L) \n",breaks = c(125,150,175,200,225,250,275,300,325,350), limits = c(125,350))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+CK_PLOT_1
+ 
+```
+
+##Sodium
+```{r}
+Na_SUM<-main_df%>%
+  summarySE(measurevar = "cal_Na", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+Na_SUM$Session_f = factor(Na_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+Na_SUM$Speed_f = factor(Na_SUM$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+Na_SUM$Time_Point_f = factor(Na_SUM$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+Na_PLOT_1 <- ggplot(Na_SUM, aes(x = Time_Point_f, y= cal_Na))+
+            geom_errorbar(aes(ymin = cal_Na-se, ymax =cal_Na+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Sodium \n",breaks = c(125,150,175,200), limits = c(125,200))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+Na_PLOT_1
+ 
+```
+
+##Potassium
+```{r}
+K_SUM<-main_df%>%
+  summarySE(measurevar = "cal_K", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+K_SUM$Session_f = factor(K_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+K_SUM$Speed_f = factor(K_SUM$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+K_SUM$Time_Point_f = factor(K_SUM$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+K_PLOT_1 <- ggplot(K_SUM, aes(x = Time_Point_f, y= cal_K))+
+            geom_errorbar(aes(ymin = cal_K-se, ymax =cal_K+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Potassium \n",breaks = c(4,5,6,7,8,9,10), limits = c(4,10))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+K_PLOT_1
+ 
+```
+
+##Chlorine
+```{r}
+Cl_SUM<-main_df%>%
+  summarySE(measurevar = "cal_Cl", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+Cl_SUM$Session_f = factor(Cl_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+Cl_SUM$Speed_f = factor(Cl_SUM$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+Cl_SUM$Time_Point_f = factor(Cl_SUM$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+Cl_PLOT_1 <- ggplot(Cl_SUM, aes(x = Time_Point_f, y= cal_Cl))+
+            geom_errorbar(aes(ymin = cal_Cl-se, ymax =cal_Cl+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            #scale_y_continuous(name = "Chlorine \n",breaks = c(4,5,6,7,8,9,10), limits = c(4,10))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+Cl_PLOT_1
+ 
+```
