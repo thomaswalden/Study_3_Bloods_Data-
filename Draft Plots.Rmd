@@ -243,7 +243,7 @@ Cl_PLOT_1 <- ggplot(Cl_SUM, aes(x = Time_Point_f, y= cal_Cl))+
             theme_classic()+
             theme(legend.position="right", legend.title=element_blank())+
             xlab("\n Collection Time Point")+
-            #scale_y_continuous(name = "Chlorine \n",breaks = c(4,5,6,7,8,9,10), limits = c(4,10))+
+            scale_y_continuous(name = "Chlorine \n",breaks = c(90,100,110,120), limits = c(90,120))+
             scale_x_discrete(breaks=c("1", "2", "3"),
               labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
 

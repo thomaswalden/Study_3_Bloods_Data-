@@ -20,6 +20,11 @@ main_df$Time_Point <- as.factor(main_df$Time_Point)
   
 ```
 
+
+```{r}
+write.csv(main_df,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Main_Data_Frame (22-08-2022).csv",row.names = FALSE)
+```
+
 ```{r}
 histogram(main_df$cal_Na)
 ```
@@ -44,5 +49,14 @@ summarySE(measurevar = "cal_K", groupvar =c("Session"), na.rm = TRUE, conf.inter
 
 ClSUM <- main_df%>%
 summarySE(measurevar = "cal_Cl", groupvar =c("Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+main_df_PRE <- main_df%>%
+  filter(!Time_Point %in% "2")%>%
+  filter(!Time_Point %in% "3")
+
+main_df <- main_df[main_df$cal_Cl <300,]
+TRUNK_MAX_X <- TRUNK_MAX_X[TRUNK_MAX_X$TrunkAngle_X <10,]
 ```
 
