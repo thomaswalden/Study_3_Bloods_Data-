@@ -1,0 +1,47 @@
+#Main Data Sheet
+```{r}
+main_df <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2021\\Study 2 and 3\\AAADATA\\Bloods Data\\MAIN_DATA_SHEET.csv")
+```
+
+#Calculating Dilution Factor
+```{r}
+main_df <- main_df%>%
+  filter(!Sample %in% 22)%>%
+  filter(!Sample %in% 235)%>%
+  filter(!Sample %in% 236)%>%
+  mutate(Dilution_Factor = ((Sample.Volume+Solution)/Sample.Volume))%>%
+  mutate(cal_LDH = LDH*Dilution_Factor)%>%
+  mutate(cal_CK = CK*Dilution_Factor)%>%
+  mutate(cal_Na = Na*Dilution_Factor)%>%
+  mutate(cal_K = K*Dilution_Factor)%>%
+  mutate(cal_Cl = Cl*Dilution_Factor)%>%
+  drop_na(Sample)
+  
+```
+
+```{r}
+histogram(main_df$cal_Na)
+```
+
+
+#Summary Data
+```{r}
+BlaSUM <- main_df%>%
+summarySE(measurevar = "Bla", groupvar =c("Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+LDHSUM <- main_df%>%
+summarySE(measurevar = "cal_LDH", groupvar =c("Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+CKSUM <- main_df%>%
+summarySE(measurevar = "cal_CK", groupvar =c("Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+NaSUM <- main_df%>%
+summarySE(measurevar = "cal_Na", groupvar =c("Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+KSUM <- main_df%>%
+summarySE(measurevar = "cal_K", groupvar =c("Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+ClSUM <- main_df%>%
+summarySE(measurevar = "cal_Cl", groupvar =c("Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
