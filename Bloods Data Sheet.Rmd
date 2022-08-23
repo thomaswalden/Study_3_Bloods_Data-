@@ -6,7 +6,7 @@ main_df <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\P
 #Calculating Dilution Factor
 ```{r}
 main_df <- main_df%>%
-  filter(!Sample %in% 22)%>%
+  #filter(!Sample %in% 22)%>%
   filter(!Sample %in% 235)%>%
   filter(!Sample %in% 236)%>%
   mutate(Dilution_Factor = ((Sample.Volume+Solution)/Sample.Volume))%>%
@@ -22,7 +22,7 @@ main_df$Time_Point <- as.factor(main_df$Time_Point)
 
 
 ```{r}
-write.csv(main_df,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Main_Data_Frame (22-08-2022).csv",row.names = FALSE)
+write.csv(main_df,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Main_Data_Frame (23-08-2022).csv",row.names = FALSE)
 ```
 
 ```{r}
