@@ -41,6 +41,11 @@ Bla_PLOT_1
  
 ```
 
+```{r}
+ggsave(plot=Bla_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Blaplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
 ## Lactate Dehydrogenase
 ```{r}
 LDH_SUM<-main_df%>%
@@ -83,6 +88,12 @@ LDH_PLOT_1
  
 ```
 
+```{r}
+ggsave(plot=LDH_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//LDHplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+
 ##Creatine Kinase
 ```{r}
 CK_SUM<-main_df%>%
@@ -123,6 +134,11 @@ CK_PLOT_1 <- ggplot(CK_SUM, aes(x = Time_Point_f, y= cal_CK))+
 
 CK_PLOT_1
  
+```
+
+```{r}
+ggsave(plot=CK_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//CKplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
 ```
 
 ##Sodium
@@ -167,6 +183,11 @@ Na_PLOT_1
  
 ```
 
+```{r}
+ggsave(plot=Na_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//NAplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
 ##Potassium
 ```{r}
 K_SUM<-main_df%>%
@@ -209,6 +230,11 @@ K_PLOT_1
  
 ```
 
+```{r}
+ggsave(plot=K_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Kplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
 ##Chlorine
 ```{r}
 Cl_SUM<-main_df%>%
@@ -249,4 +275,9 @@ Cl_PLOT_1 <- ggplot(Cl_SUM, aes(x = Time_Point_f, y= cal_Cl))+
 
 Cl_PLOT_1
  
+```
+
+```{r}
+ggsave(plot=Cl_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Clplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
 ```
