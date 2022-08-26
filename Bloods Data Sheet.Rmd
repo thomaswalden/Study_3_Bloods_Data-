@@ -3,6 +3,10 @@
 main_df <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2021\\Study 2 and 3\\AAADATA\\Bloods Data\\MAIN_DATA_SHEET.csv")
 ```
 
+```{r}
+main_df2 <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Main_Data_Frame (Outliers_Removed).csv")
+```
+
 #Calculating Dilution Factor
 ```{r}
 main_df <- main_df%>%
@@ -20,6 +24,25 @@ main_df$Time_Point <- as.factor(main_df$Time_Point)
   
 ```
 
+```{r}
+main_df2 <- main_df2%>%
+  #filter(!Sample %in% 22)%>%
+  filter(!Sample %in% 235)%>%
+  filter(!Sample %in% 236)%>%
+  mutate(Dilution_Factor = ((Sample.Volume+Solution)/Sample.Volume))%>%
+  mutate(cal_LDH = LDH*Dilution_Factor)%>%
+  mutate(cal_CK = CK*Dilution_Factor)%>%
+  mutate(cal_Na = (Na-0.68)*Dilution_Factor)%>%
+  mutate(cal_K = (K-0.025)*Dilution_Factor)%>%
+  mutate(cal_Cl = (Cl-2.8)*Dilution_Factor)%>%
+  drop_na(Sample)
+main_df2$Time_Point <- as.factor(main_df2$Time_Point)
+  
+```
+
+```{r}
+boxplot(cal_Cl ~ Session + Time_Point, data = main_df2)
+```
 
 ```{r}
 write.csv(main_df,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Main_Data_Frame (25-08-2022).csv",row.names = FALSE)

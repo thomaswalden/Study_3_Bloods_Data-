@@ -93,6 +93,57 @@ ggsave(plot=LDH_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop
 
 ```
 
+### Lactate Dehydrogenase PLot 2
+```{r}
+LDH_SUM2<-main_df2%>%
+  summarySE(measurevar = "cal_LDH", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+LDH_SUM2$Session_f = factor(LDH_SUM2$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+LDH_SUM2$Speed_f = factor(LDH_SUM2$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+LDH_SUM2$Time_Point_f = factor(LDH_SUM2$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+LDH_PLOT_2 <- ggplot(LDH_SUM2, aes(x = Time_Point_f, y= cal_LDH))+
+            geom_errorbar(aes(ymin = cal_LDH-se, ymax =cal_LDH+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Lactate Dehydrogenase (units/L) \n",breaks = c(150,160,170,180,190,200,210,220,230,240,250,260,270), limits = c(150,270))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+LDH_PLOT_2
+ 
+```
+```{r}
+LDH_Grouping <- ggarrange(LDH_PLOT_1,LDH_PLOT_2,labels=c("A", "B"), ncol=2, nrow=1, common.legend = TRUE, legend = "bottom")
+
+LDH_Grouping
+```
+
+```{r}
+ggsave(plot=LDH_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//LDHgrouping_Draft(26-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
 
 ##Creatine Kinase
 ```{r}
@@ -141,6 +192,64 @@ ggsave(plot=CK_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop/
 
 ```
 
+###CK_PLOT2
+```{r}
+CK_SUM2<-main_df2%>%
+  summarySE(measurevar = "cal_CK", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+CK_SUM2$Session_f = factor(CK_SUM2$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+CK_SUM2$Speed_f = factor(CK_SUM2$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+CK_SUM2$Time_Point_f = factor(CK_SUM2$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+CK_PLOT_2 <- ggplot(CK_SUM2, aes(x = Time_Point_f, y= cal_CK))+
+            geom_errorbar(aes(ymin = cal_CK-se, ymax =cal_CK+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Creatine Kinase (units/L) \n",breaks = c(100,125,150,175,200,225,250,275,300,325,350), limits = c(100,350))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+CK_PLOT_2
+ 
+```
+
+```{r}
+ggsave(plot=CK_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//CKplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+```{r}
+CK_Grouping <- ggarrange(CK_PLOT_1,CK_PLOT_2,labels=c("A", "B"), ncol=2, nrow=1, common.legend = TRUE, legend = "bottom")
+
+CK_Grouping
+```
+```{r}
+ggsave(plot=CK_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//CKgrouping_Draft(26-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+
 ##Sodium
 ```{r}
 Na_SUM<-main_df%>%
@@ -185,6 +294,64 @@ Na_PLOT_1
 
 ```{r}
 ggsave(plot=Na_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//NAplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+###Sodum PLot 2
+```{r}
+Na_SUM2<-main_df2%>%
+  summarySE(measurevar = "cal_Na", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+Na_SUM2$Session_f = factor(Na_SUM2$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+Na_SUM2$Speed_f = factor(Na_SUM2$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+Na_SUM2$Time_Point_f = factor(Na_SUM2$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+Na_PLOT_2 <- ggplot(Na_SUM2, aes(x = Time_Point_f, y= cal_Na))+
+            geom_errorbar(aes(ymin = cal_Na-se, ymax =cal_Na+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Sodium \n",breaks = c(125,150,175,200), limits = c(125,200))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+Na_PLOT_2
+ 
+```
+
+```{r}
+ggsave(plot=Na_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//NAplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+```{r}
+NA_Grouping <- ggarrange(Na_PLOT_1,Na_PLOT_2,labels=c("A", "B"), ncol=2, nrow=1, common.legend = TRUE, legend = "bottom")
+
+NA_Grouping
+```
+
+```{r}
+ggsave(plot=NA_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Nagrouping_Draft(26-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
 
 ```
 
@@ -235,6 +402,65 @@ ggsave(plot=K_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//
 
 ```
 
+###Potassium Plot 2
+```{r}
+K_SUM2<-main_df2%>%
+  summarySE(measurevar = "cal_K", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+K_SUM2$Session_f = factor(K_SUM2$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+K_SUM2$Speed_f = factor(K_SUM2$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+K_SUM2$Time_Point_f = factor(K_SUM2$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+K_PLOT_2 <- ggplot(K_SUM2, aes(x = Time_Point_f, y= cal_K))+
+            geom_errorbar(aes(ymin = cal_K-se, ymax =cal_K+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Potassium \n",breaks = c(4,5,6,7,8,9,10), limits = c(4,10))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+K_PLOT_2
+ 
+```
+
+```{r}
+ggsave(plot=K_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Kplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+```{r}
+K_Grouping <- ggarrange(K_PLOT_1,K_PLOT_2,labels=c("A", "B"), ncol=2, nrow=1, common.legend = TRUE, legend = "bottom")
+
+K_Grouping
+```
+
+```{r}
+ggsave(plot=K_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Kgrouping_Draft(26-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+
 ##Chlorine
 ```{r}
 Cl_SUM<-main_df%>%
@@ -279,5 +505,63 @@ Cl_PLOT_1
 
 ```{r}
 ggsave(plot=Cl_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Clplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+###Chorine PLot 2
+```{r}
+Cl_SUM2<-main_df2%>%
+  summarySE(measurevar = "cal_Cl", groupvar =c("Session","Time_Point", "Speed","BFR"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+```
+
+```{r}
+Cl_SUM2$Session_f = factor(Cl_SUM2$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+Cl_SUM2$Speed_f = factor(Cl_SUM2$Speed, levels=c("SW", "FW"))
+ Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ names(Speed.labs)<-c("SW", "FW")
+ 
+Cl_SUM2$Time_Point_f = factor(Cl_SUM2$Time_Point, levels=c("1", "2", "3"))
+Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("1", "2", "3")
+ 
+
+Cl_PLOT_2 <- ggplot(Cl_SUM2, aes(x = Time_Point_f, y= cal_Cl))+
+            geom_errorbar(aes(ymin = cal_Cl-se, ymax =cal_Cl+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(22, 15, 21, 16))+
+            theme_classic()+
+            theme(legend.position="right", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Chlorine \n",breaks = c(90,100,110,120), limits = c(90,120))+
+            scale_x_discrete(breaks=c("1", "2", "3"),
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+
+Cl_PLOT_2
+ 
+```
+
+```{r}
+ggsave(plot=Cl_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Clplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+```{r}
+Cl_Grouping <- ggarrange(Cl_PLOT_1,Cl_PLOT_2,labels=c("A", "B"), ncol=2, nrow=1, common.legend = TRUE, legend = "bottom")
+
+Cl_Grouping
+```
+
+```{r}
+ggsave(plot=Cl_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Clgrouping_Draft(26-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
 
 ```
