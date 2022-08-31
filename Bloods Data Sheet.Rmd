@@ -83,3 +83,54 @@ main_df <- main_df[main_df$cal_Cl <300,]
 TRUNK_MAX_X <- TRUNK_MAX_X[TRUNK_MAX_X$TrunkAngle_X <10,]
 ```
 
+#calculating Percentage Change
+##CK
+```{r}
+CK_PCHANGE <- main_df2%>%
+  summarySE(measurevar = "cal_CK", groupvar =c("Session", "Time_Point","Participant"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+  
+```
+
+```{r}
+write.csv(CK_PCHANGE,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\CK_PCHANGE (29-08-2022).csv",row.names = FALSE)
+```
+
+```{r}
+CK_PCHANGE_CL <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Percentage Change\\CK_PCHANGE (29-08-2022).csv")
+```
+
+```{r}
+CK_PCHANGE_CL<-CK_PCHANGE_CL%>%
+  mutate(P_CHANGE = ((CK_POST-CK_PRE)/CK_PRE)*100)
+
+CK_PCHANGET2_SUM <-CK_PCHANGE_CL%>% 
+summarySE(measurevar = "P_CHANGE", groupvar =c("Time_Point", "BFR", "Speed", "Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+```
+
+```{r}
+names(main_df2)
+```
+
+
+##LDH
+```{r}
+LDH_PCHANGE <- main_df2%>%
+  summarySE(measurevar = "cal_LDH", groupvar =c("Session", "Time_Point","Participant"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+  
+```
+
+```{r}
+write.csv(LDH_PCHANGE,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\LDH_PCHANGE (29-08-2022).csv",row.names = FALSE)
+
+LDH_PCHANGE_CL <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Percentage Change\\LDH_PCHANGE (29-08-2022).csv")
+```
+
+```{r}
+LDH_PCHANGE_CL<-LDH_PCHANGE_CL%>%
+  mutate(P_CHANGE = ((LDH_POST-LDH_PRE)/LDH_PRE)*100)
+
+LDH_PCHANGET2_SUM <-LDH_PCHANGE_CL%>% 
+summarySE(measurevar = "P_CHANGE", groupvar =c("Time_Point", "BFR", "Speed", "Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+```

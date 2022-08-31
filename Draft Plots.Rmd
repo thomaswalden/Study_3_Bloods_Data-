@@ -10,18 +10,39 @@ Bla_SUM$Session_f = factor(Bla_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR")
  Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
  names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
  
-Bla_SUM$Speed_f = factor(Bla_SUM$Speed, levels=c("SW", "FW"))
+Bla_SUM$Speed_f = factor(Bla_SUM$Speed, levels=c("SLOW", "FAST"))
  Speed.labs<- c("Low-Intensity","Moderate-Intensity")
- names(Speed.labs)<-c("SW", "FW")
+ names(Speed.labs)<-c("SLOW", "FAST")
  
 Bla_SUM$Time_Point_f = factor(Bla_SUM$Time_Point, levels=c("1", "2", "3"))
 Time_Point.labs<- c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe")
 names(Time_Point.labs)<-c("1", "2", "3")
- 
+
+
+FWBFR_Bla_Finger <- data.frame(Time_Point_f = c("2"),
+                         Bla = c(6),
+                         Session_f = c("FWBFR"))
+
+FWBFR_Bla_Toe <- data.frame(Time_Point_f = c("3"),
+                         Bla = c(6),
+                         Session_f = c("FWBFR"))
+
+FW_Bla_Toe <- data.frame(Time_Point_f = c("3"),
+                         Bla = c(5),
+                         Session_f = c("FW"))
+
+SWBFR_Bla_Finger <- data.frame(Time_Point_f = c("2"),
+                         Bla = c(4),
+                         Session_f = c("SWBFR"))
+
+SWBFR_Bla_Toe <- data.frame(Time_Point_f = c("3"),
+                         Bla = c(4),
+                         Session_f = c("SWBFR"))
+
 
 Bla_PLOT_1 <- ggplot(Bla_SUM, aes(x = Time_Point_f, y= Bla))+
-            geom_errorbar(aes(ymin = Bla-se, ymax =Bla+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
-            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+            geom_errorbar(aes(ymin = Bla-se, ymax =Bla+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
   
             scale_colour_manual(name = "Session_f",
                             labels = Session_f.labs,
@@ -29,20 +50,38 @@ Bla_PLOT_1 <- ggplot(Bla_SUM, aes(x = Time_Point_f, y= Bla))+
   
             scale_shape_manual(name = "Session_f",
                            labels = Session_f.labs,
-                           values = c(22, 15, 21, 16))+
+                           values = c(21, 16,22, 15))+
             theme_classic()+
-            theme(legend.position="right", legend.title=element_blank())+
+            theme(legend.position="bottom", legend.title=element_blank())+
             xlab("\n Collection Time Point")+
             scale_y_continuous(name = "Blood Lactate Concentration (mmol/L) \n",breaks = c(0,1,2,3,4,5,6), limits = c(0,6))+
             scale_x_discrete(breaks=c("1", "2", "3"),
-              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+                  theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=16, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))+
+  
+                  geom_text(size=6,data = FWBFR_Bla_Finger, label = "a #       ")+  
+                   geom_text(size=6,data = FWBFR_Bla_Toe, label = "a  #     ")+
+                   geom_text(size=6,data = FW_Bla_Toe, label = "a")+
+                   geom_text(size=6,data = SWBFR_Bla_Finger, label = "#")+
+                   geom_text(size=6,data = SWBFR_Bla_Toe, label = "#")
+
 
 Bla_PLOT_1
  
 ```
 
 ```{r}
-ggsave(plot=Bla_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Blaplot_Draft(25-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+ggsave(plot=Bla_PLOT_1,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Blaplot_Draft(31-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
 
 ```
 
@@ -318,8 +357,8 @@ names(Time_Point.labs)<-c("1", "2", "3")
  
 
 Na_PLOT_2 <- ggplot(Na_SUM2, aes(x = Time_Point_f, y= cal_Na))+
-            geom_errorbar(aes(ymin = cal_Na-se, ymax =cal_Na+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
-            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+            geom_errorbar(aes(ymin = cal_Na-se, ymax =cal_Na+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
   
             scale_colour_manual(name = "Session_f",
                             labels = Session_f.labs,
@@ -327,13 +366,24 @@ Na_PLOT_2 <- ggplot(Na_SUM2, aes(x = Time_Point_f, y= cal_Na))+
   
             scale_shape_manual(name = "Session_f",
                            labels = Session_f.labs,
-                           values = c(22, 15, 21, 16))+
+                           values = c(21, 16, 22, 15))+
             theme_classic()+
-            theme(legend.position="right", legend.title=element_blank())+
+            theme(legend.position="", legend.title=element_blank())+
             xlab("\n Collection Time Point")+
-            scale_y_continuous(name = "Sodium \n",breaks = c(125,150,175,200), limits = c(125,200))+
+            scale_y_continuous(name = "Sodium (mmol/L) \n",breaks = c(100,125,150,175,200), limits = c(100,200))+
             scale_x_discrete(breaks=c("1", "2", "3"),
-              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+  theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=10, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
 
 Na_PLOT_2
  
@@ -423,8 +473,8 @@ names(Time_Point.labs)<-c("1", "2", "3")
  
 
 K_PLOT_2 <- ggplot(K_SUM2, aes(x = Time_Point_f, y= cal_K))+
-            geom_errorbar(aes(ymin = cal_K-se, ymax =cal_K+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
-            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+            geom_errorbar(aes(ymin = cal_K-se, ymax =cal_K+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
   
             scale_colour_manual(name = "Session_f",
                             labels = Session_f.labs,
@@ -432,13 +482,24 @@ K_PLOT_2 <- ggplot(K_SUM2, aes(x = Time_Point_f, y= cal_K))+
   
             scale_shape_manual(name = "Session_f",
                            labels = Session_f.labs,
-                           values = c(22, 15, 21, 16))+
+                           values = c(21, 16, 22, 15))+
             theme_classic()+
-            theme(legend.position="right", legend.title=element_blank())+
+            theme(legend.position="", legend.title=element_blank())+
             xlab("\n Collection Time Point")+
-            scale_y_continuous(name = "Potassium \n",breaks = c(4,5,6,7,8,9,10), limits = c(4,10))+
+            scale_y_continuous(name = "Potassium (mmol/L) \n",breaks = c(4,5,6,7,8,9,10), limits = c(4,10))+
             scale_x_discrete(breaks=c("1", "2", "3"),
-              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+  theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=10, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
 
 K_PLOT_2
  
@@ -529,8 +590,8 @@ names(Time_Point.labs)<-c("1", "2", "3")
  
 
 Cl_PLOT_2 <- ggplot(Cl_SUM2, aes(x = Time_Point_f, y= cal_Cl))+
-            geom_errorbar(aes(ymin = cal_Cl-se, ymax =cal_Cl+se, group = Session), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
-            geom_point(aes(shape = Session), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+            geom_errorbar(aes(ymin = cal_Cl-se, ymax =cal_Cl+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
   
             scale_colour_manual(name = "Session_f",
                             labels = Session_f.labs,
@@ -538,13 +599,23 @@ Cl_PLOT_2 <- ggplot(Cl_SUM2, aes(x = Time_Point_f, y= cal_Cl))+
   
             scale_shape_manual(name = "Session_f",
                            labels = Session_f.labs,
-                           values = c(22, 15, 21, 16))+
+                           values = c(21, 16, 22, 15))+
             theme_classic()+
-            theme(legend.position="right", legend.title=element_blank())+
+            theme(legend.position="", legend.title=element_blank())+
             xlab("\n Collection Time Point")+
-            scale_y_continuous(name = "Chlorine \n",breaks = c(90,100,110,120), limits = c(90,120))+
+            scale_y_continuous(name = "Chlorine (mmol/L) \n",breaks = c(50,75,100,125,150), limits = c(50,150))+
             scale_x_discrete(breaks=c("1", "2", "3"),
-              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))
+              labels=c("Pre-Exercise", "Post-Exercise Finger", "Post-Exercise Toe"))+
+  theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=10, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
 
 Cl_PLOT_2
  
@@ -563,5 +634,134 @@ Cl_Grouping
 
 ```{r}
 ggsave(plot=Cl_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//Clgrouping_Draft(26-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+#Percentage Change
+##CK
+CK_PCHANGET2_SUM
+
+```{r}
+CK_PCHANGET2_SUM$Session_f = factor(CK_PCHANGET2_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+#Cl_SUM2$Speed_f = factor(Cl_SUM2$Speed, levels=c("SW", "FW"))
+ #Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ #names(Speed.labs)<-c("SW", "FW")
+ 
+CK_PCHANGET2_SUM$Time_Point_f = factor(CK_PCHANGET2_SUM$Time_Point, levels=c("2", "3"))
+Time_Point.labs<- c("Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("2", "3")
+ 
+
+CK_PLOT_PCHANGE <- ggplot(CK_PCHANGET2_SUM, aes(x = Time_Point_f, y= P_CHANGE))+
+            geom_errorbar(aes(ymin = P_CHANGE-se, ymax =P_CHANGE+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(21, 16, 22, 15))+
+            theme_classic()+
+            ggtitle("Creatine Kinase")+
+            theme(plot.title = element_text(hjust = 0.5))+
+            theme(legend.position="", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Percentage Change \n",breaks = c(-10,0,10,20,30,40,50), limits = c(-10,50))+
+            scale_x_discrete(breaks=c("2", "3"),
+              labels=c("Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+             theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=16, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
+
+CK_PLOT_PCHANGE
+ 
+```
+##LDH
+```{r}
+LDH_PCHANGET2_SUM
+```
+
+```{r}
+LDH_PCHANGET2_SUM$Session_f = factor(LDH_PCHANGET2_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+#Cl_SUM2$Speed_f = factor(Cl_SUM2$Speed, levels=c("SW", "FW"))
+ #Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ #names(Speed.labs)<-c("SW", "FW")
+ 
+LDH_PCHANGET2_SUM$Time_Point_f = factor(LDH_PCHANGET2_SUM$Time_Point, levels=c("2", "3"))
+Time_Point.labs<- c("Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("2", "3")
+ 
+
+LDH_PLOT_PCHANGE <- ggplot(LDH_PCHANGET2_SUM, aes(x = Time_Point_f, y= P_CHANGE))+
+            geom_errorbar(aes(ymin = P_CHANGE-se, ymax =P_CHANGE+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(21, 16,22, 15))+
+            theme_classic()+
+            ggtitle("Lactate Dehydrogenase")+
+            theme(plot.title = element_text(hjust = 0.5))+
+            theme(legend.position="", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Percentage Change \n",breaks = c(-10,0,10,20,30,40,50), limits = c(-10,50))+
+            scale_x_discrete(breaks=c("2", "3"),
+              labels=c("Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+            theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=16, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
+
+LDH_PLOT_PCHANGE
+ 
+```
+
+```{r}
+PCHANGE_Grouping <- ggarrange(CK_PLOT_PCHANGE,LDH_PLOT_PCHANGE,labels=c("A", "B"), ncol=2, nrow=1, common.legend = TRUE, legend = "bottom")
+
+PCHANGE_Grouping
+```
+
+```{r}
+ggsave(plot=PCHANGE_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//PCHANGE_Grouping_Draft(31-08-2022).png", units = "in",width = 12, height = 8, dpi = 1200)
+
+```
+
+##Electrolyte Grouping
+```{r}
+ELECTROLYTE_Grouping <- ggarrange(Na_PLOT_2,Cl_PLOT_2,K_PLOT_2,labels=c("A", "B", "C"), ncol=3, nrow=1, common.legend = TRUE, legend = "bottom")
+
+ELECTROLYTE_Grouping
+```
+
+```{r}
+ggsave(plot=ELECTROLYTE_Grouping,"C://Users//thoma//OneDrive - Murdoch University//Desktop//PhD 2022//Publications//Study 2 - Bloods//Plot Drafts//ELECTROLYTE_Grouping(31-08-2022).png", units = "in",width = 18, height = 8, dpi = 1200)
 
 ```
