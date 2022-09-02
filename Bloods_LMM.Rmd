@@ -33,8 +33,45 @@ pairwiseLDH
 tab_model(LDHLMM)
 ```
 
+```{r}
+names(main_df2)
+
+```
+
+#Sodium
+```{r}
+NaLMM <- lmer(cal_Na ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = main_df2)
+summary(NaLMM)
+pairwise_NaLMM <- emmeans(NaLMM, pairwise ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed, adjust="holm")
+pairwise_NaLMM
+```
 
 ```{r}
-names(LDH_PCHANGE_CL)
+tab_model(NaLMM)
+```
+
+#Potassium
+```{r}
+KLMM <- lmer(cal_K ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = main_df2)
+summary(KLMM)
+pairwise_KLMM <- emmeans(KLMM, pairwise ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed, adjust="holm")
+pairwise_KLMM
+```
+
+```{r}
+tab_model(KLMM)
+```
+
+#Chlorine
+
+```{r}
+ClLMM <- lmer(cal_Cl ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = main_df2)
+summary(ClLMM)
+pairwise_ClLMM <- emmeans(ClLMM, pairwise ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed, adjust="holm")
+pairwise_ClLMM
+```
+
+```{r}
+tab_model(ClLMM)
 ```
 
