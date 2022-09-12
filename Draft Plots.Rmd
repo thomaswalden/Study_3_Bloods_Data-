@@ -743,6 +743,158 @@ LDH_PLOT_PCHANGE
  
 ```
 
+##Sodium
+```{r}
+sodium_PCHANGE_CL_SUM$Session_f = factor(sodium_PCHANGE_CL_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+#Cl_SUM2$Speed_f = factor(Cl_SUM2$Speed, levels=c("SW", "FW"))
+ #Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ #names(Speed.labs)<-c("SW", "FW")
+ 
+sodium_PCHANGE_CL_SUM$Time_Point_f = factor(sodium_PCHANGE_CL_SUM$Time_Point, levels=c("2", "3"))
+Time_Point.labs<- c("Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("2", "3")
+ 
+
+Sodium_PLOT_PCHANGE <- ggplot(sodium_PCHANGE_CL_SUM, aes(x = Time_Point_f, y= P_CHANGE))+
+            geom_errorbar(aes(ymin = P_CHANGE-se, ymax =P_CHANGE+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(21, 16,22, 15))+
+            theme_classic()+
+            ggtitle("Sodium")+
+            theme(plot.title = element_text(hjust = 0.5))+
+            theme(legend.position="", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Percentage Change \n",breaks = c(-10,0,10,20,30,40,50), limits = c(-10,50))+
+            scale_x_discrete(breaks=c("2", "3"),
+              labels=c("Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+            theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=16, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
+
+Sodium_PLOT_PCHANGE
+ 
+```
+
+##Potassium
+```{r}
+potassium_PCHANGE_CL_SUM$Session_f = factor(potassium_PCHANGE_CL_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+#Cl_SUM2$Speed_f = factor(Cl_SUM2$Speed, levels=c("SW", "FW"))
+ #Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ #names(Speed.labs)<-c("SW", "FW")
+ 
+potassium_PCHANGE_CL_SUM$Time_Point_f = factor(potassium_PCHANGE_CL_SUM$Time_Point, levels=c("2", "3"))
+Time_Point.labs<- c("Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("2", "3")
+ 
+
+potassium_PLOT_PCHANGE <- ggplot(potassium_PCHANGE_CL_SUM, aes(x = Time_Point_f, y= P_CHANGE))+
+            geom_errorbar(aes(ymin = P_CHANGE-se, ymax =P_CHANGE+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(21, 16,22, 15))+
+            theme_classic()+
+            ggtitle("Potassium")+
+            theme(plot.title = element_text(hjust = 0.5))+
+            theme(legend.position="", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Percentage Change \n",breaks = c(-10,0,10,20,30,40,50), limits = c(-10,50))+
+            scale_x_discrete(breaks=c("2", "3"),
+              labels=c("Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+            theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=16, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
+
+potassium_PLOT_PCHANGE
+ 
+```
+
+##Chloride
+```{r}
+chloride_PCHANGE_CL_SUM$Session_f = factor(chloride_PCHANGE_CL_SUM$Session, levels=c("SW","SWBFR","FW", "FWBFR"))
+ Session_f.labs<- c("Low-Intensity", "Low-Intensity + BFR", "Moderate-Intensity", "Moderate-Intensity + BFR")
+ names(Session_f.labs)<-c("SW","SWBFR","FW", "FWBFR")
+ 
+#Cl_SUM2$Speed_f = factor(Cl_SUM2$Speed, levels=c("SW", "FW"))
+ #Speed.labs<- c("Low-Intensity","Moderate-Intensity")
+ #names(Speed.labs)<-c("SW", "FW")
+ 
+chloride_PCHANGE_CL_SUM$Time_Point_f = factor(chloride_PCHANGE_CL_SUM$Time_Point, levels=c("2", "3"))
+Time_Point.labs<- c("Post-Exercise Finger", "Post-Exercise Toe")
+names(Time_Point.labs)<-c("2", "3")
+ 
+
+chloride_PLOT_PCHANGE <- ggplot(chloride_PCHANGE_CL_SUM, aes(x = Time_Point_f, y= P_CHANGE))+
+            geom_errorbar(aes(ymin = P_CHANGE-se, ymax =P_CHANGE+se, group = Session_f), width = 0.3, colour = "black", position = position_dodge(width = 0.5))+
+            geom_point(aes(shape = Session_f), fill = "white", colour = "black", size = 5, stroke = 1.8, position = position_dodge(width = 0.5))+
+  
+            scale_colour_manual(name = "Session_f",
+                            labels = Session_f.labs,
+                            values = c("black", "black", "black", "black"))+
+  
+            scale_shape_manual(name = "Session_f",
+                           labels = Session_f.labs,
+                           values = c(21, 16,22, 15))+
+            theme_classic()+
+            ggtitle("Potassium")+
+            theme(plot.title = element_text(hjust = 0.5))+
+            theme(legend.position="", legend.title=element_blank())+
+            xlab("\n Collection Time Point")+
+            scale_y_continuous(name = "Percentage Change \n",breaks = c(-20,-10,0,10,20,30,40,50), limits = c(-20,50))+
+            scale_x_discrete(breaks=c("2", "3"),
+              labels=c("Post-Exercise Finger", "Post-Exercise Toe"))+
+  
+            theme(axis.line = element_line(colour = "black", size = 0.4, linetype = "solid"),
+                  axis.text.x=element_text(size=16, colour="black"),
+                  axis.text.y=element_text(size=16, colour="black"))+
+                  theme(axis.text.x=element_text(size=16, angle = 0),
+                   axis.title.x=element_text(size=16),
+                   axis.title.y=element_text(size=18),
+                   strip.text.y=element_text(size=14,face="italic"),
+                   strip.text.x=element_text(size=16,face="italic"),
+                   legend.title = element_blank())+
+                   theme(legend.text=element_text(size=16))
+
+chloride_PLOT_PCHANGE
+ 
+```
+
+
+
 ```{r}
 PCHANGE_Grouping <- ggarrange(CK_PLOT_PCHANGE,LDH_PLOT_PCHANGE,labels=c("A", "B"), ncol=2, nrow=1, common.legend = TRUE, legend = "bottom")
 
@@ -754,7 +906,7 @@ ggsave(plot=PCHANGE_Grouping,"C://Users//thoma//OneDrive - Murdoch University//D
 
 ```
 
-##Electrolyte Grouping
+#Electrolyte Grouping
 ```{r}
 ELECTROLYTE_Grouping <- ggarrange(Na_PLOT_2,Cl_PLOT_2,K_PLOT_2,labels=c("A", "B", "C"), ncol=3, nrow=1, common.legend = TRUE, legend = "bottom")
 

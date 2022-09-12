@@ -37,8 +37,8 @@ tab_model(LDHLMM)
 names(main_df2)
 
 ```
-
-#Sodium
+#Total Change
+##Sodium
 ```{r}
 NaLMM <- lmer(cal_Na ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = main_df2)
 summary(NaLMM)
@@ -50,7 +50,7 @@ pairwise_NaLMM
 tab_model(NaLMM)
 ```
 
-#Potassium
+##Potassium
 ```{r}
 KLMM <- lmer(cal_K ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = main_df2)
 summary(KLMM)
@@ -62,7 +62,7 @@ pairwise_KLMM
 tab_model(KLMM)
 ```
 
-#Chlorine
+##Chlorine
 
 ```{r}
 ClLMM <- lmer(cal_Cl ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = main_df2)
@@ -75,3 +75,39 @@ pairwise_ClLMM
 tab_model(ClLMM)
 ```
 
+#Percentage Change
+##Sodium
+```{r}
+NaLMM_PCHANGE <- lmer(P_CHANGE ~ Time_Point + BFR + speed + Time_Point*BFR + Time_Point*speed + (1|Participant), data = sodium_PCHANGE_CL)
+summary(NaLMM_PCHANGE)
+pairwise_NaLMM_PCHANGE <- emmeans(NaLMM_PCHANGE, pairwise ~ Time_Point + BFR + speed + Time_Point*BFR + Time_Point*speed, adjust="holm")
+pairwise_NaLMM_PCHANGE
+```
+
+```{r}
+tab_model(NaLMM_PCHANGE)
+```
+
+##Potassium - Time points taken out currently
+```{r}
+KLMM_PCHANGE <- lmer(P_CHANGE ~ BFR + Speed + Speed*BFR + (1|Participant), data = potassium_PCHANGE_CL)
+summary(KLMM_PCHANGE)
+pairwise_KLMM_PCHANGE <- emmeans(KLMM_PCHANGE, pairwise ~ BFR + Speed + Speed*BFR, adjust="holm")
+pairwise_KLMM_PCHANGE
+```
+
+```{r}
+tab_model(KLMM_PCHANGE)
+```
+
+##Chloride
+```{r}
+ClLMM_PCHANGE <- lmer(P_CHANGE ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = chloride_PCHANGE_CL)
+summary(ClLMM_PCHANGE)
+pairwise_ClLMM_PCHANGE <- emmeans(ClLMM_PCHANGE, pairwise ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed, adjust="holm")
+pairwise_ClLMM_PCHANGE
+```
+
+```{r}
+tab_model(ClLMM_PCHANGE)
+```
