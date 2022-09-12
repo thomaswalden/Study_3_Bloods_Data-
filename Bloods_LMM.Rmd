@@ -21,28 +21,6 @@ pairwiseCK
 tab_model(CKLMM)
 ```
 
-#Creatine Kinase - Total Change
-```{r}
-#Cant use total change as the SWBFR is uncharacteristically low
-```
-
-```{r}
-main_df_noPRE<-main_df2%>%
-  filter(!Time_Point %in% "1")
-```
-
-
-```{r}
-CKLMM_Total <- lmer(cal_CK ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = main_df_noPRE)
-summary(CKLMM_Total)
-pairwiseCK_total <- emmeans(CKLMM_Total, pairwise ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed, adjust="holm")
-pairwiseCK_total
-```
-```{r}
-tab_model(CKLMM_Total)
-```
-
-
 #Lactate Dehydrogenase
 ```{r}
 LDHLMM <- lmer(P_CHANGE ~ Time_Point + BFR + Speed + Time_Point*BFR + Time_Point*Speed + (1|Participant), data = LDH_PCHANGE_CL)

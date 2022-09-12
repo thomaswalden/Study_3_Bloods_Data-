@@ -88,7 +88,7 @@ main_df <- main_df[main_df$cal_Cl <300,]
 TRUNK_MAX_X <- TRUNK_MAX_X[TRUNK_MAX_X$TrunkAngle_X <10,]
 ```
 
-#calculating Percentage Change
+#Calculating Percentage Change
 ##CK
 ```{r}
 CK_PCHANGE <- main_df2%>%
@@ -113,11 +113,6 @@ summarySE(measurevar = "P_CHANGE", groupvar =c("Time_Point", "BFR", "Speed", "Se
 
 ```
 
-```{r}
-names(main_df2)
-```
-
-
 ##LDH
 ```{r}
 LDH_PCHANGE <- main_df2%>%
@@ -139,3 +134,73 @@ LDH_PCHANGET2_SUM <-LDH_PCHANGE_CL%>%
 summarySE(measurevar = "P_CHANGE", groupvar =c("Time_Point", "BFR", "Speed", "Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
 
 ```
+
+##Sodium
+```{r}
+sodium_PCHANGE <- main_df2%>%
+  summarySE(measurevar = "cal_Na", groupvar =c("Session", "Time_Point","Participant"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+  
+```
+
+```{r}
+write.csv(sodium_PCHANGE,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\sodium_PCHANGE (12-09-2022a).csv",row.names = FALSE)
+
+sodium_PCHANGE_CL <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Percentage Change\\sodium_PCHANGE (12-09-2022).csv")
+```
+
+```{r}
+sodium_PCHANGE_CL<-sodium_PCHANGE_CL%>%
+  mutate(P_CHANGE = ((POST_EXERCISE-PRE_EXERCISE)/PRE_EXERCISE)*100)
+
+sodium_PCHANGE_CL_SUM <-sodium_PCHANGE_CL%>% 
+summarySE(measurevar = "P_CHANGE", groupvar =c("Time_Point", "BFR", "speed", "Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+```
+
+##Potassium
+```{r}
+sodium_PCHANGE <- main_df2%>%
+  summarySE(measurevar = "cal_K", groupvar =c("Session", "Speed", "BFR", "Time_Point","Participant"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+  
+```
+
+```{r}
+write.csv(sodium_PCHANGE,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Percentage Change\\potassium_PCHANGE (12-09-2022).csv",row.names = FALSE)
+
+potassium_PCHANGE_CL <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Percentage Change\\potassium_PCHANGE (12-09-2022).csv")
+```
+
+```{r}
+potassium_PCHANGE_CL<-potassium_PCHANGE_CL%>%
+  mutate(P_CHANGE = ((POST_EXERCISE-PRE_EXERCISE)/PRE_EXERCISE)*100)
+
+potassium_PCHANGE_CL_SUM <-potassium_PCHANGE_CL%>% 
+summarySE(measurevar = "P_CHANGE", groupvar =c("Time_Point", "BFR", "Speed", "Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+```
+
+##Chloride
+```{r}
+chloride_PCHANGE <- main_df2%>%
+  summarySE(measurevar = "cal_Cl", groupvar =c("Session", "Speed", "BFR", "Time_Point","Participant"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+  
+```
+
+```{r}
+write.csv(chloride_PCHANGE,"C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Percentage Change\\chloride_PCHANGE (12-09-2022).csv",row.names = FALSE)
+
+chloride_PCHANGE_CL <- read.csv("C:\\Users\\thoma\\OneDrive - Murdoch University\\Desktop\\PhD 2022\\Publications\\Study 2 - Bloods\\Percentage Change\\chloride_PCHANGE (12-09-2022).csv")
+```
+
+```{r}
+chloride_PCHANGE_CL<-chloride_PCHANGE_CL%>%
+  mutate(P_CHANGE = ((POST_EXERCISE-PRE_EXERCISE)/PRE_EXERCISE)*100)
+
+chloride_PCHANGE_CL_SUM <-chloride_PCHANGE_CL%>% 
+summarySE(measurevar = "P_CHANGE", groupvar =c("Time_Point", "BFR", "Speed", "Session"), na.rm = TRUE, conf.interval = 0.95, .drop = TRUE)
+
+```
+
+
+
+
